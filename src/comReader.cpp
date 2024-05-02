@@ -60,8 +60,10 @@ void comReader::com_save()
     std::string name,comment;
     getchar();
     do{
-        printf("存档名(可不填,限32个字):");
+        printf("存档名(必填,限32个字,直接回车取消存档):");
         getline(std::cin,name);
+        if (!name.size())
+            return ;
         if (name.size()>32)
             msgErr("超出了32个字");
         else
@@ -69,8 +71,8 @@ void comReader::com_save()
     }while(true);
     
     do{
-    printf("存档备注(可不填,限1024个字):");
-    getline(std::cin,comment);
+        printf("存档备注(可不填,限1024个字):");
+        getline(std::cin,comment);
         if (comment.size()>1024)
             msgErr("超出了1024个字");
         else
@@ -116,14 +118,90 @@ void comReader::com_log()
 
 void comReader::com_mArchive()
 {
+    printf("需要修改的存档的序号(0为取消):");
+    int index;
+    scanf("%d",&index);
+    index--;
+    if (index>=fu->infos.size()||index<0)
+        return ;
+    std::string name,comment;
+    getchar();
+    do{
+        printf("新存档名(必填,限32个字,直接回车以保持原本存档名):");
+        getline(std::cin,name);
+        if (!name.size())
+            return ;
+        if (name.size()>32)
+            msgErr("超出了32个字");
+        else
+            break;
+    }while(true);
+    
+    do{
+        printf("新存档备注(限1024个字,直接回车以保持原本存档备注):");
+        getline(std::cin,comment);
+        if (comment.size()>1024)
+            msgErr("超出了1024个字");
+        else
+            break;
+    }while(true);
+    fu->infos[index].change(name,comment);
+    msgSuc("修改存档成功");
 }
 
 void comReader::com_dArchive()
 {
+    printf("需要删除的存档的序号(0为取消):");
+    int index;
+    scanf("%d",&index);
+    index--;
+    if (index>=fu->infos.size()||index<0)
+    {
+        msgLog("取消删除");
+        return ;
+    }
+    std::cout<<"确定要删除存档\"["<<index+1<<"]"
+            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
+            <<"\"吗(y/n):";
+    std::string s;
+    getchar();
+    getline(std::cin,s);
+
+    if (s!="y")
+    {
+        msgLog("取消删除");
+        return ;
+    }
+
+    fu->delArchive(index);
+    fu->infos.erase(fu->infos.begin()+index);
+    msgSuc("删除成功");
 }
 
 void comReader::com_qDelete()
 {
+    if (!fu->infos.size())
+    {
+        msgErr("无存档");
+        return ;
+    }
+    int index=fu->infos.size()-1;
+    std::cout<<"确定要删除存档\"["<<index+1<<"]"
+        <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
+        <<"\"吗(y/n):";
+    std::string s;
+    getchar();
+    getline(std::cin,s);
+
+    if (s!="y")
+    {
+        msgLog("取消删除");
+        return ;
+    }
+
+    fu->delArchive(index);
+    fu->infos.erase(fu->infos.begin()+index);
+    msgSuc("删除成功");
 }
 
 ////////////////////////////////////////////////////////////////

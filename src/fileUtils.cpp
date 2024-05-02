@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <ShlObj.h>
 
+#include "comReader.h"
 #include "fileUtils.h"
 #include "MyExpection.h"
 
@@ -27,6 +28,26 @@ void fileUtils::save(inform info)
     fs::create_directories(newArchpath);
     fs::copy(datapath,newArchpath,fs::copy_options::recursive);
     infos.push_back(info);
+}
+
+void fileUtils::delArchive(int index)
+{
+    fs::path p=crrpath;
+    p.append("Archive"+std::to_string(index));
+    try {
+        fs::remove_all(p);
+        fs::path old;
+        while(index<infos.size()-1)
+        {
+            old=crrpath;
+            old.append("Archive"+std::to_string(index+1));
+            fs::rename(old,p);
+            p=old;
+            index++;
+        }
+    } catch (const std::filesystem::filesystem_error& e) {
+        throw MyExpection("未能删除存档");
+    }
 }
 
 ///////////////////////////////////////

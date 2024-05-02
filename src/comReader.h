@@ -18,20 +18,20 @@ class comReader
 private:
     static const unsigned int listMaxlen = 11;
     struct comLists list [listMaxlen] = {
-        {"quit","q",nullptr,"退出\t"},
+        {"quit","q",nullptr,"退出\t\t"},
         {"clearScreen","cls",com_cls,"清屏\n\n"},
 
-        {"save","s",com_save,"保存\t"},
-        {"qsave","qs",com_qsave,"快速保存\t"},
+        {"save","s",com_save,"保存\t\t"},
+        {"qsave","qs",com_qsave,"快速保存\t\t"},
         {"rsave","rs",com_rsave,"覆盖式保存(覆盖最新存档)\n\n"},
 
         {"load","l",com_load,"读取存档\t"},
         {"qload","ql",com_qload,"快速读取(读取最新)\t"},
-        {"log","lo",com_log,"输出存档信息\n\n"},
+        {"log","lo",com_log,"查看存档信息\n\n"},
 
         {"mArchive","ma",com_mArchive,"修改存档信息\t"},
-        {"dArchive","da",com_dArchive,"删除指定存档\t"},
-        {"qDelete","qd",com_qDelete,"删除最新存档\t"}
+        {"delArch","del",com_dArchive,"删除指定存档\t\t"},
+        {"qDelete","qd",com_qDelete,"删除最新存档"}
     };
 
     fileUtils* fu;

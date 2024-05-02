@@ -29,16 +29,23 @@ struct inform
         strcpy(this->comment,comment.c_str());
     };
     inform(){};
+    void change(std::string name,std::string comment)
+    {
+        strcpy(this->name,name.c_str());
+        strcpy(this->comment,comment.c_str());
+    };
 };
 
 class fileUtils
 {
+friend class comReader;
 private:
     fs::path datapath, crrpath, infopath; //crrpath:path to the archives
     std::vector <inform> infos;
     std::fstream infofile;
 public:
     void save(struct inform info);
+    void delArchive(int index);
     inline std::vector <inform> GetInfos() const {return infos;}
     fileUtils();
     ~fileUtils();
