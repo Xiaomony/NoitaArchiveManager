@@ -28,7 +28,9 @@ int main()
     {
         msgErr(e.what());
     }
-    
+    delete fu;
+    delete cr;
+    //system("pause");
     return 0;
 }
 

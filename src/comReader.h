@@ -16,25 +16,39 @@ struct comLists
 class comReader
 {
 private:
-    static const unsigned int listMaxlen = 7;
+    static const unsigned int listMaxlen = 11;
     struct comLists list [listMaxlen] = {
-        {"quit","q",nullptr,"退出"},
-        {"clearScreen","cls",com_cls,"清屏"},
-        {"save","s",com_save,"保存"},
-        {"qsave","qs",com_qsave,"快速保存"},
-        {"load","l",com_load,"读取存档"},
-        {"qload","ql",com_qload,"快速读取(读取最新)"},
-        {"log","lo",com_log,"输出存档信息"}
+        {"quit","q",nullptr,"退出\t"},
+        {"clearScreen","cls",com_cls,"清屏\n\n"},
+
+        {"save","s",com_save,"保存\t"},
+        {"qsave","qs",com_qsave,"快速保存\t"},
+        {"rsave","rs",com_rsave,"覆盖式保存(覆盖最新存档)\n\n"},
+
+        {"load","l",com_load,"读取存档\t"},
+        {"qload","ql",com_qload,"快速读取(读取最新)\t"},
+        {"log","lo",com_log,"输出存档信息\n\n"},
+
+        {"mArchive","ma",com_mArchive,"修改存档信息\t"},
+        {"dArchive","da",com_dArchive,"删除指定存档\t"},
+        {"qDelete","qd",com_qDelete,"删除最新存档\t"}
     };
 
     fileUtils* fu;
 protected:
     void com_cls();
+
     void com_save();
     void com_qsave();
+    void com_rsave();
+
     void com_load();
     void com_qload();
     void com_log();
+
+    void com_mArchive();
+    void com_dArchive();
+    void com_qDelete();
 public:
     void loop();
     comReader(fileUtils* fu);
