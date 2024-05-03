@@ -1,6 +1,7 @@
 #include <string>
 #include <windows.h>
 #include <ShlObj.h>
+#include <iostream>
 
 #include "comReader.h"
 #include "fileUtils.h"
@@ -37,7 +38,7 @@ void fileUtils::delArchive(int index)
     try {
         fs::remove_all(p);
         fs::path old;
-        while(index<infos.size()-1)
+        while(index<(int)(infos.size()-1))
         {
             old=crrpath;
             old.append("Archive"+std::to_string(index+1));
@@ -46,7 +47,25 @@ void fileUtils::delArchive(int index)
             index++;
         }
     } catch (const std::filesystem::filesystem_error& e) {
+        std::cout<<e.what()<<std::endl;
         throw MyExpection("未能删除存档");
+    }
+}
+
+void fileUtils::loadArchive(int index)
+{
+    try
+    {
+        fs::remove_all(datapath);
+        fs::create_directories(datapath);
+        fs::path p=crrpath;
+        p.append("Archive"+std::to_string(index));
+        fs::copy(p,datapath,fs::copy_options::recursive);
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << e.what() << '\n';
+        throw MyExpection("读档失败");
     }
 }
 

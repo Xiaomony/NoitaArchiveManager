@@ -20,7 +20,6 @@ struct st_time
 struct inform
 {
     struct st_time time;
-    //std::string name,comment;
     char name[32];
     char comment[1024];
     inform(std::string name,std::string comment)
@@ -46,6 +45,7 @@ private:
 public:
     void save(struct inform info);
     void delArchive(int index);
+    void loadArchive(int index);
     inline std::vector <inform> GetInfos() const {return infos;}
     fileUtils();
     ~fileUtils();

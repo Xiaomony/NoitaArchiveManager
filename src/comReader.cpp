@@ -26,7 +26,10 @@ void comReader::loop()
             {
                 auto &it=list[i];
                 if (command==it.command||command==it.simplified)
+                {
                     index=i;
+                    break;
+                }
             }
         }
         if (!index)
@@ -42,7 +45,7 @@ void comReader::loop()
 void comReader::com_cls()
 {
     system("cls");
-    msgSuc("====================Noita Saver====================\n");
+    msgSuc("====================Noita Archive Manager====================\n");
     printf("\033[0;34m");
     msgLog("输入操作：(数字/编号/括号内简写)");
     for (int i=0;i<listMaxlen;i++)
@@ -91,14 +94,95 @@ void comReader::com_qsave()
 
 void comReader::com_rsave()
 {
+    int index = fu->infos.size()-1;
+    if (index>=0)
+    {
+        std::cout<<"确定要覆盖存档\"["<<index+1<<"]"
+        <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
+        <<"\"吗(y/n):";
+        std::string s;
+        getchar();
+        getline(std::cin,s);
+        if (s!="y")
+        {
+            msgLog("取消覆盖");
+            return ;
+        }
+        inform t=fu->infos.back();
+        t.time=st_time();
+        fu->infos.pop_back();
+        fu->delArchive(index);
+        fu->save(t);
+        msgSuc("覆盖成功");
+    }
+    else
+    {
+        msgLog("当前无存档,直接保存");
+        com_save();
+    }
 }
 
 void comReader::com_load()
 {
+    printf("需要读取的存档的序号(0为取消):");
+    int index;
+    scanf("%d",&index);
+    index--;
+    if (index>=fu->infos.size()||index<0)
+    {
+        msgLog("取消读取");
+        return ;
+    }
+    msgWrn("此过程会覆盖Noita中现有的存档,请谨慎操作!");
+    std::cout<<"确定要读取存档\"["<<index+1<<"]"
+            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
+            <<"\"吗(y/n):";
+    std::string s;
+    getchar();
+    getline(std::cin,s);
+
+    if (s!="y")
+    {
+        msgLog("取消读取");
+        return ;
+    }
+
+
+    try
+    {
+        fu->loadArchive(index);
+        msgSuc("读取成功");
+    }
+    catch(const std::exception& e)
+    {
+        throw;
+    }
 }
 
 void comReader::com_qload()
 {
+    int index=fu->infos.size()-1;
+    if (index<0)
+    {
+        msgLog("无存档可读取");
+        return ;
+    }
+    msgWrn("此过程会覆盖Noita中现有的存档,请谨慎操作!");
+    std::cout<<"确定要读取最新的存档\"["<<index+1<<"]"
+            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
+            <<"\"吗(y/n):";
+    std::string s;
+    getchar();
+    getline(std::cin,s);
+
+    if (s!="y")
+    {
+        msgLog("取消读取");
+        return ;
+    }
+
+    fu->loadArchive(index);
+    msgSuc("读取成功");
 }
 
 void comReader::com_log()
@@ -129,8 +213,6 @@ void comReader::com_mArchive()
     do{
         printf("新存档名(必填,限32个字,直接回车以保持原本存档名):");
         getline(std::cin,name);
-        if (!name.size())
-            return ;
         if (name.size()>32)
             msgErr("超出了32个字");
         else
@@ -145,11 +227,15 @@ void comReader::com_mArchive()
         else
             break;
     }while(true);
+    if (name=="")
+        name=fu->infos[index].name;
+    if (comment=="")
+        comment=fu->infos[index].comment;
     fu->infos[index].change(name,comment);
     msgSuc("修改存档成功");
 }
 
-void comReader::com_dArchive()
+void comReader::com_delArch()
 {
     printf("需要删除的存档的序号(0为取消):");
     int index;

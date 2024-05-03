@@ -30,7 +30,7 @@ private:
         {"log","lo",com_log,"查看存档信息\n\n"},
 
         {"mArchive","ma",com_mArchive,"修改存档信息\t"},
-        {"delArch","del",com_dArchive,"删除指定存档\t\t"},
+        {"delArch","del",com_delArch,"删除指定存档\t\t"},
         {"qDelete","qd",com_qDelete,"删除最新存档"}
     };
 
@@ -47,7 +47,7 @@ protected:
     void com_log();
 
     void com_mArchive();
-    void com_dArchive();
+    void com_delArch();
     void com_qDelete();
 public:
     void loop();
