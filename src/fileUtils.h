@@ -39,6 +39,7 @@ class fileUtils
 {
 friend class comReader;
 private:
+    void saveLog();
     fs::path datapath, crrpath, infopath; //crrpath:path to the archives
     std::vector <inform> infos;
     std::fstream infofile;

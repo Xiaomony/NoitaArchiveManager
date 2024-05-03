@@ -54,6 +54,7 @@ void comReader::com_help()
     msgWrn("5.请在Noita正常保存、关闭后再进行存档");
     msgWrn("  (游戏进行中存档的话保存的是Noita的自动存档,可能是几分钟前的存档,并非保存时的存档)");
     msgWrn("6.游戏进行中请勿读取存档");
+    msgWrn("7.随着游戏的进行,每次存档所用的时间和占用的空间也会不断增大,请耐心等待");
     // msgWrn("");
     msgWrn("---------------------------------------------------------------");
 }
@@ -125,7 +126,6 @@ void comReader::com_rsave()
         }
         inform t=fu->infos.back();
         t.time=st_time();
-        fu->infos.pop_back();
         fu->delArchive(index);
         fu->save(t);
         msgSuc("覆盖成功");
@@ -252,6 +252,7 @@ void comReader::com_mArchive()
     if (comment=="")
         comment=fu->infos[index].comment;
     fu->infos[index].change(name,comment);
+    fu->saveLog();
     msgSuc("修改存档成功");
 }
 
@@ -280,7 +281,6 @@ void comReader::com_delArch()
     }
 
     fu->delArchive(index);
-    fu->infos.erase(fu->infos.begin()+index);
     msgSuc("删除成功");
 }
 
@@ -306,7 +306,6 @@ void comReader::com_qDelete()
     }
 
     fu->delArchive(index);
-    fu->infos.erase(fu->infos.begin()+index);
     msgSuc("删除成功");
 }
 

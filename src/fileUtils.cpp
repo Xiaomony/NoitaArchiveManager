@@ -22,13 +22,21 @@ st_time::st_time()
 }
 ////////////////////////////////////////
 
+void fileUtils::saveLog()
+{
+    infofile.open(infopath,std::ios::out|std::ios::binary);
+    infofile.write(reinterpret_cast<char*>(infos.data()),sizeof(inform)*infos.size());
+    infofile.close();
+}
+
 void fileUtils::save(inform info)
 {
     fs::path newArchpath = crrpath;
-    newArchpath.append("archive"+std::to_string(infos.size()));
+    newArchpath.append("Archive"+std::to_string(infos.size()));
     fs::create_directories(newArchpath);
     fs::copy(datapath,newArchpath,fs::copy_options::recursive);
     infos.push_back(info);
+    saveLog();
 }
 
 void fileUtils::delArchive(int index)
@@ -46,6 +54,8 @@ void fileUtils::delArchive(int index)
             p=old;
             index++;
         }
+        infos.erase(infos.begin()+index);
+        saveLog();
     } catch (const std::filesystem::filesystem_error& e) {
         std::cout<<e.what()<<std::endl;
         throw MyExpection("未能删除存档");
@@ -131,7 +141,4 @@ fileUtils::fileUtils()
 
 fileUtils::~fileUtils()
 {
-    infofile.open(infopath,std::ios::out|std::ios::binary);
-    infofile.write(reinterpret_cast<char*>(infos.data()),sizeof(inform)*infos.size());
-    infofile.close();
 }
