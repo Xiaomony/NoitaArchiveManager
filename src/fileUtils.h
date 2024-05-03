@@ -46,6 +46,7 @@ public:
     void save(struct inform info);
     void delArchive(int index);
     void loadArchive(int index);
+    double getUsageSpace();
     inline std::vector <inform> GetInfos() const {return infos;}
     fileUtils();
     ~fileUtils();

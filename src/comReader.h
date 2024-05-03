@@ -16,9 +16,10 @@ struct comLists
 class comReader
 {
 private:
-    static const unsigned int listMaxlen = 11;
+    static const unsigned int listMaxlen = 12;
     struct comLists list [listMaxlen] = {
         {"quit","q",nullptr,"退出\t\t"},
+        {"help","h",com_help,"帮助\t\t\t"},
         {"clearScreen","cls",com_cls,"清屏\n\n"},
 
         {"save","s",com_save,"保存\t\t"},
@@ -36,6 +37,7 @@ private:
 
     fileUtils* fu;
 protected:
+    void com_help();
     void com_cls();
 
     void com_save();

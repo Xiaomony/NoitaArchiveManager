@@ -43,18 +43,28 @@ void comReader::loop()
 
 ////////////////////////////////commad Callback/////////////////////////////
 
+void comReader::com_help()
+{
+    msgWrn("---------------------------------------------------------------");
+    msgWrn("gitHub主页:https://github.com/Xiaomony/NoitaArchiveManager.git");
+    msgWrn("1.本程序运行时会在程序所在目录下建立一个Archive文件夹用于存储日志文件和保存的存档,请勿删除(若删除,则相当于恢复程序第一次运行的状态)");
+    msgWrn("2.建议将程序放在磁盘中的某个文件夹下,再发送到桌面快捷方式使用(避免程序在桌面创建Archive文件夹后被误删)");
+    msgWrn("3.请在Noita主界面有\"继续\"这一选项时读取存档,若没有则请先\"新游戏\"后再关闭游戏读档,重新打开后再点击\"继续\"");
+    //msgWrn("");
+    msgWrn("---------------------------------------------------------------");
+}
+
 void comReader::com_cls()
 {
     system("cls");
     msgSuc("====================Noita Archive Manager====================\n");
+    msgSuc("==================初次使用请使用help或h查看帮助==================\n");
     printf("\033[0;34m");
     msgLog("输入操作：(数字/编号/括号内简写)");
     for (int i=0;i<listMaxlen;i++)
     {
         auto &it=list[i];
         printf("%d.%s(%s)\t%s",i+1,it.command.c_str(),it.simplified.c_str(),it.introduce.c_str());
-        // if ((i+1)%3==0)
-        //     printf("\n");
     }
     printf("\033[0m");
 }
@@ -191,7 +201,8 @@ void comReader::com_log()
     auto infos=fu->GetInfos();
     msgWrn("------------------------------------------------------------------------------------");
     printf("\033[0;33m");
-    std::cout<<"存档总数："<<infos.size()<<std::endl;
+    std::cout<<"存档总数："<<infos.size()<<"\t\t";
+    printf("占用空间:%.2fMB\n",fu->getUsageSpace());
 
     UINT defaultCodePage = GetACP();
     SetConsoleOutputCP(defaultCodePage);

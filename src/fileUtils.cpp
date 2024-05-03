@@ -69,6 +69,17 @@ void fileUtils::loadArchive(int index)
     }
 }
 
+double fileUtils::getUsageSpace()
+{
+    std::uintmax_t size = 0;
+
+    for (const auto& entry : fs::recursive_directory_iterator(crrpath))
+        if (fs::is_regular_file(entry))
+            size += fs::file_size(entry);
+
+    return static_cast<double>(size) / (1024 * 1024);
+}
+
 ///////////////////////////////////////
 fileUtils::fileUtils()
 {
