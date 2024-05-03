@@ -2,7 +2,8 @@
 
 #include"MyExpection.h"
 #include<iostream>
-
+#include <windows.h>
+#include <ShlObj.h>
 
 void comReader::loop()
 {
@@ -191,11 +192,16 @@ void comReader::com_log()
     msgWrn("------------------------------------------------------------------------------------");
     printf("\033[0;33m");
     std::cout<<"存档总数："<<infos.size()<<std::endl;
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    
     for (int i=0;i<infos.size();i++)
     {
         auto &it=infos[i];
         std::cout<<i+1<<'\t'<<it.time.toString()<<"\t\t"<<it.name<<"\t\t"<<it.comment<<std::endl;
     }
+    SetConsoleOutputCP(CP_UTF8);
     printf("\033[0m");
     msgWrn("------------------------------------------------------------------------------------");
 }
