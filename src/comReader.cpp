@@ -50,7 +50,11 @@ void comReader::com_help()
     msgWrn("1.本程序运行时会在程序所在目录下建立一个Archive文件夹用于存储日志文件和保存的存档,请勿删除(若删除,则相当于恢复程序第一次运行的状态)");
     msgWrn("2.建议将程序放在磁盘中的某个文件夹下,再发送到桌面快捷方式使用(避免程序在桌面创建Archive文件夹后被误删)");
     msgWrn("3.请在Noita主界面有\"继续\"这一选项时读取存档,若没有则请先\"新游戏\"后再关闭游戏读档,重新打开后再点击\"继续\"");
-    //msgWrn("");
+    msgWrn("4.建议关闭Steam云存档");
+    msgWrn("5.请在Noita正常保存、关闭后再进行存档");
+    msgWrn("  (游戏进行中存档的话保存的是Noita的自动存档,可能是几分钟前的存档,并非保存时的存档)");
+    msgWrn("6.游戏进行中请勿读取存档");
+    // msgWrn("");
     msgWrn("---------------------------------------------------------------");
 }
 
@@ -201,8 +205,7 @@ void comReader::com_log()
     auto infos=fu->GetInfos();
     msgWrn("------------------------------------------------------------------------------------");
     printf("\033[0;33m");
-    std::cout<<"存档总数："<<infos.size()<<"\t\t";
-    printf("占用空间:%.2fMB\n",fu->getUsageSpace());
+    std::cout<<"存档总数："<<infos.size()<<"\n";
 
     UINT defaultCodePage = GetACP();
     SetConsoleOutputCP(defaultCodePage);
@@ -305,6 +308,11 @@ void comReader::com_qDelete()
     fu->delArchive(index);
     fu->infos.erase(fu->infos.begin()+index);
     msgSuc("删除成功");
+}
+
+void comReader::com_usage()
+{
+    printf("占用空间:%.2fMB\n",fu->getUsageSpace());
 }
 
 ////////////////////////////////////////////////////////////////
