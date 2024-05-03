@@ -57,7 +57,7 @@ void comReader::com_help()
 void comReader::com_cls()
 {
     system("cls");
-    msgSuc("====================Noita Archive Manager====================\n");
+    msgSuc("====================Noita Archive Manager====================");
     msgSuc("==================初次使用请使用help或h查看帮助==================\n");
     printf("\033[0;34m");
     msgLog("输入操作：(数字/编号/括号内简写)");
