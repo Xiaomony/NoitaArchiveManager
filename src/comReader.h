@@ -16,7 +16,7 @@ struct comLists
 class comReader
 {
 private:
-    static const unsigned int listMaxlen = 12;
+    static const unsigned int listMaxlen = 13;
     struct comLists list [listMaxlen] = {
         {"quit","q",nullptr,"退出\t\t"},
         {"help","h",com_help,"帮助\t\t\t"},
@@ -32,7 +32,9 @@ private:
 
         {"mArchive","ma",com_mArchive,"修改存档信息\t"},
         {"delArch","del",com_delArch,"删除指定存档\t\t"},
-        {"qDelete","qd",com_qDelete,"删除最新存档"}
+        {"qDelete","qd",com_qDelete,"删除最新存档\n\n"},
+
+        {"usage","use",com_usage,"查看占用空间\n\n"},
     };
 
     fileUtils* fu;
@@ -51,6 +53,8 @@ protected:
     void com_mArchive();
     void com_delArch();
     void com_qDelete();
+
+    void com_usage();
 public:
     void loop();
     comReader(fileUtils* fu);
