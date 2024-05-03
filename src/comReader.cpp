@@ -252,6 +252,7 @@ void comReader::com_mArchive()
     if (comment=="")
         comment=fu->infos[index].comment;
     fu->infos[index].change(name,comment);
+    fu->saveLog();
     msgSuc("修改存档成功");
 }
 
@@ -280,7 +281,6 @@ void comReader::com_delArch()
     }
 
     fu->delArchive(index);
-    fu->infos.erase(fu->infos.begin()+index);
     msgSuc("删除成功");
 }
 
@@ -306,7 +306,6 @@ void comReader::com_qDelete()
     }
 
     fu->delArchive(index);
-    fu->infos.erase(fu->infos.begin()+index);
     msgSuc("删除成功");
 }
 
