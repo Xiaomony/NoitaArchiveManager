@@ -2,8 +2,8 @@
 
 #include"MyExpection.h"
 #include<iostream>
-#include <windows.h>
-#include <ShlObj.h>
+#include<windows.h>
+#include<ShlObj.h>
 
 void comReader::loop()
 {
@@ -13,8 +13,9 @@ void comReader::loop()
     do
     {
         index=-1;
-        printf("\n>>>");
-        std::cin>>command;
+        printf(">>>");
+        //std::cin>>command;
+        getline(std::cin, command);
         try
         {
             index=std::stoi(command)-1;
@@ -42,6 +43,28 @@ void comReader::loop()
 }
 
 ////////////////////////////////commad Callback/////////////////////////////
+
+void comReader::print_log(int start, int end)
+{
+    auto infos=fu->GetInfos();
+    msgWrn("------------------------------------------------------------------------------------");
+    printf("\033[0;33m");
+    std::cout<<"存档总数："<<infos.size()<<"\n";
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    
+    start = std::max(0,start);
+    end = std::min((int)(infos.size())-1,end);
+    for (int i=start;i<=end;i++)
+    {
+        auto &it=infos[i];
+        std::cout<<i+1<<'\t'<<it.time.toString()<<"\t\t"<<it.name<<"\t\t"<<it.comment<<std::endl;
+    }
+    SetConsoleOutputCP(CP_UTF8);
+    printf("\033[0m");
+    msgWrn("------------------------------------------------------------------------------------");
+}
 
 void comReader::com_help()
 {
@@ -77,7 +100,7 @@ void comReader::com_cls()
 void comReader::com_save()
 {
     std::string name,comment;
-    getchar();
+    //getchar();
     do{
         printf("存档名(必填,限32个字,直接回车取消存档):");
         getline(std::cin,name);
@@ -123,7 +146,7 @@ void comReader::com_rsave()
         std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
 
         std::string s;
-        getchar();
+        //getchar();
         getline(std::cin,s);
         if (s!="y")
         {
@@ -145,6 +168,11 @@ void comReader::com_rsave()
 
 void comReader::com_load()
 {
+    if (!fu->infos.size())
+    {
+        msgErr("无存档可读取");
+        return;
+    }
     printf("需要读取的存档的序号(0为取消):");
     int index;
     scanf("%d",&index);
@@ -190,7 +218,7 @@ void comReader::com_qload()
     int index=fu->infos.size()-1;
     if (index<0)
     {
-        msgLog("无存档可读取");
+        msgErr("无存档可读取");
         return ;
     }
     msgWrn("此过程会覆盖Noita中现有的存档,请谨慎操作!");
@@ -204,7 +232,7 @@ void comReader::com_qload()
     std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
 
     std::string s;
-    getchar();
+    //getchar();
     getline(std::cin,s);
 
     if (s!="y")
@@ -219,22 +247,12 @@ void comReader::com_qload()
 
 void comReader::com_log()
 {
-    auto infos=fu->GetInfos();
-    msgWrn("------------------------------------------------------------------------------------");
-    printf("\033[0;33m");
-    std::cout<<"存档总数："<<infos.size()<<"\n";
+    print_log(0,fu->infos.size()-1);
+}
 
-    UINT defaultCodePage = GetACP();
-    SetConsoleOutputCP(defaultCodePage);
-    
-    for (int i=0;i<infos.size();i++)
-    {
-        auto &it=infos[i];
-        std::cout<<i+1<<'\t'<<it.time.toString()<<"\t\t"<<it.name<<"\t\t"<<it.comment<<std::endl;
-    }
-    SetConsoleOutputCP(CP_UTF8);
-    printf("\033[0m");
-    msgWrn("------------------------------------------------------------------------------------");
+void comReader::com_slog()
+{
+    print_log(fu->infos.size()-7,fu->infos.size()-1);
 }
 
 void comReader::com_mArchive()
@@ -275,6 +293,11 @@ void comReader::com_mArchive()
 
 void comReader::com_delArch()
 {
+    if (!fu->infos.size())
+    {
+        msgErr("无存档");
+        return ;
+    }
     printf("需要删除的存档的序号(0为取消):");
     int index;
     scanf("%d",&index);
@@ -323,7 +346,7 @@ void comReader::com_qDelete()
     
     std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
     std::string s;
-    getchar();
+    //getchar();
     getline(std::cin,s);
 
     if (s!="y")

@@ -38,6 +38,7 @@
    | load        |                | l   | 指定存档进行读取                     |
    | qload       | quick load     | ql  | 快速读取（最近一次的存档）                |
    | log         |                | lo  | 查看所有存档极其信息                   |
+   | slog        | short log      | sl  | 查看近七次存档                |
    | mArchive    | modify Archive | ma  | 修改某个存档的信息                    |
    | delArch     | delete Archive | del | 删除某个存档                       |
    | qDelete     | quick Delete   | qd  | 删除最新的存档                      |
