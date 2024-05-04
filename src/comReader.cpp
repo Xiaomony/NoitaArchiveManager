@@ -113,9 +113,15 @@ void comReader::com_rsave()
     int index = fu->infos.size()-1;
     if (index>=0)
     {
-        std::cout<<"确定要覆盖存档\"["<<index+1<<"]"
-        <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
-        <<"\"吗(y/n):";
+        std::cout<<"确定要覆盖存档\"["<<index+1<<"]";
+
+        UINT defaultCodePage = GetACP();
+        SetConsoleOutputCP(defaultCodePage);
+        std::cout<<fu->infos[index].name<<"\t";
+        SetConsoleOutputCP(CP_UTF8);
+        
+        std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
+
         std::string s;
         getchar();
         getline(std::cin,s);
@@ -149,9 +155,14 @@ void comReader::com_load()
         return ;
     }
     msgWrn("此过程会覆盖Noita中现有的存档,请谨慎操作!");
-    std::cout<<"确定要读取存档\"["<<index+1<<"]"
-            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
-            <<"\"吗(y/n):";
+    std::cout<<"确定要读取存档\"["<<index+1<<"]";
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    std::cout<<fu->infos[index].name<<"\t";
+    SetConsoleOutputCP(CP_UTF8);
+    
+    std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
     std::string s;
     getchar();
     getline(std::cin,s);
@@ -183,9 +194,15 @@ void comReader::com_qload()
         return ;
     }
     msgWrn("此过程会覆盖Noita中现有的存档,请谨慎操作!");
-    std::cout<<"确定要读取最新的存档\"["<<index+1<<"]"
-            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
-            <<"\"吗(y/n):";
+    std::cout<<"确定要读取最新的存档\"["<<index+1<<"]";
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    std::cout<<fu->infos[index].name<<"\t";
+    SetConsoleOutputCP(CP_UTF8);
+
+    std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
+
     std::string s;
     getchar();
     getline(std::cin,s);
@@ -267,9 +284,14 @@ void comReader::com_delArch()
         msgLog("取消删除");
         return ;
     }
-    std::cout<<"确定要删除存档\"["<<index+1<<"]"
-            <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
-            <<"\"吗(y/n):";
+    std::cout<<"确定要删除存档\"["<<index+1<<"]";
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    std::cout<<fu->infos[index].name<<"\t";
+    SetConsoleOutputCP(CP_UTF8);
+    
+    std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
     std::string s;
     getchar();
     getline(std::cin,s);
@@ -292,9 +314,14 @@ void comReader::com_qDelete()
         return ;
     }
     int index=fu->infos.size()-1;
-    std::cout<<"确定要删除存档\"["<<index+1<<"]"
-        <<fu->infos[index].name<<"\t"<<fu->infos[index].time.toString()
-        <<"\"吗(y/n):";
+    std::cout<<"确定要删除存档\"["<<index+1<<"]";
+
+    UINT defaultCodePage = GetACP();
+    SetConsoleOutputCP(defaultCodePage);
+    std::cout<<fu->infos[index].name<<"\t";
+    SetConsoleOutputCP(CP_UTF8);
+    
+    std::cout<<fu->infos[index].time.toString()<<"\"吗(y/n):";
     std::string s;
     getchar();
     getline(std::cin,s);
