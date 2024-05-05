@@ -259,10 +259,20 @@ void comReader::com_mArchive()
 {
     printf("需要修改的存档的序号(0为取消):");
     int index;
-    scanf("%d",&index);
+    
+    if (scanf("%d",&index)==EOF)
+    {
+        getchar();
+        msgLog("取消修改");
+        return ;
+    }
     index--;
     if (index>=fu->infos.size()||index<0)
+    {
+        getchar();
+        msgLog("取消修改");
         return ;
+    }
     std::string name,comment;
     getchar();
     do{
