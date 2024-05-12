@@ -30,7 +30,7 @@ int main()
     }
     delete fu;
     delete cr;
-    //system("pause");
+    system("pause");
     return 0;
 }
 
