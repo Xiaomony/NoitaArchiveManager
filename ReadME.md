@@ -1,5 +1,7 @@
 # Noita Archive Manager 存档管理器
 
+- ## [程序说明及介绍视频](https://www.bilibili.com/video/BV1PH4y1g7u2/?vd_source=b94494fff1b1147eb0072109b3ee55bc)
+
 - [gitHub主页](https://github.com/Xiaomony/NoitaArchiveManager.git)
 
 - [使用说明及注意事项](#使用说明及注意事项)
@@ -26,7 +28,7 @@
 
 7. 随着游戏的进行,每次存档 **所用的时间** 和 **占用的空间** 也会不断 **增大** ,请耐心等待
 
-7. 命令操作：
+8. 命令操作：
    | 命令          | 含义             | 简写  | 说明                           |
    |:-----------:|:--------------:|:---:|:----------------------------:|
    | quit        |                | q   | 退出程序                         |

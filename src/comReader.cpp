@@ -80,6 +80,7 @@ void comReader::com_help()
     msgWrn("7.随着游戏的进行,每次存档所用的时间和占用的空间也会不断增大,请耐心等待");
     // msgWrn("");
     msgWrn("---------------------------------------------------------------");
+    msgSuc("本程序相关说明及介绍视频:https://www.bilibili.com/video/BV1PH4y1g7u2/?vd_source=b94494fff1b1147eb0072109b3ee55bc");
 }
 
 void comReader::com_cls()

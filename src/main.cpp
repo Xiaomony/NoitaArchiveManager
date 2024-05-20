@@ -27,10 +27,10 @@ int main()
     catch(const MyExpection& e)
     {
         msgErr(e.what());
+        system("pause");
     }
     delete fu;
     delete cr;
-    system("pause");
     return 0;
 }
 
