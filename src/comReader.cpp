@@ -78,6 +78,9 @@ void comReader::com_help()
     msgWrn("  (游戏进行中存档的话保存的是Noita的自动存档,可能是几分钟前的存档,并非保存时的存档)");
     msgWrn("6.游戏进行中请勿读取存档");
     msgWrn("7.随着游戏的进行,每次存档所用的时间和占用的空间也会不断增大,请耐心等待");
+    msgSuc("8.不要把程序放在C盘或桌面,不然程序没有权限往那里复制文件(管理员运行也没用)\n"
+            "\t如果出现terminate called after throwing an instance of 'std :: filesystem ::what(): filesystem error: cannot copy: File exists cxx11 :: filesystem_error\n"
+            "\t的错误并几秒后程序自己退出应该就是这个问题");
     // msgWrn("");
     msgWrn("---------------------------------------------------------------");
     msgSuc("本程序相关说明及介绍视频:https://www.bilibili.com/video/BV1PH4y1g7u2/?vd_source=b94494fff1b1147eb0072109b3ee55bc");
