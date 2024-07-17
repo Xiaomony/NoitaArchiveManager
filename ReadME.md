@@ -1,5 +1,11 @@
 # Noita Archive Manager 存档管理器
 
+## **此项目已迁移至新版**
+
+## **[新版的GitHub地址](https://github.com/Xiaomony/NoitArchiver-Rust_ver.)**
+
+## **[新版的说明视频](https://www.bilibili.com/video/BV1UZbkeNEoc/?vd_source=b94494fff1b1147eb0072109b3ee55bc)**
+
 - ## [程序说明及介绍视频](https://www.bilibili.com/video/BV1PH4y1g7u2/?vd_source=b94494fff1b1147eb0072109b3ee55bc)
 
 - [gitHub主页](https://github.com/Xiaomony/NoitaArchiveManager.git)
